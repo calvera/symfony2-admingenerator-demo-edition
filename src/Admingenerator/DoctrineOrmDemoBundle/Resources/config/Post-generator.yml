@@ -23,8 +23,20 @@ params:
             formType: Admingenerator\FormExtensionsBundle\Form\Type\DoubleListEntityType
     object_actions:
         delete: ~
+        expire:
+            icon: fa-calendar
+            csrfProtected: true
+            confirm: Do you really want to change expiration date?
+            confirmModal: '#confirmObjectModalWithDate'
+        simpleedit:
+            confirm: Change title
     batch_actions:
         delete: ~
+        expire:
+            icon: fa-calendar
+            csrfProtected: true
+            confirm: Do you really want to change expiration date?
+            confirmModal: '#confirmBatchModalWithDate'
 builders:
     list:
         params:
@@ -57,6 +69,10 @@ builders:
                 excel: ~
             object_actions:
                 edit: ~
+                delete: ~
+                expire: ~
+                simpleedit: ~
+            batch_actions:
                 delete: ~
     excel:
         params:
@@ -114,5 +130,8 @@ builders:
         params:
             object_actions:
                 delete: ~
+                simpleedit: ~
+                expire: ~
             batch_actions:
                 delete: ~
+                expire: ~
