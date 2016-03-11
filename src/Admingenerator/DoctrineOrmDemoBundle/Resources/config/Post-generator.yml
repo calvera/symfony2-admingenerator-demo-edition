@@ -21,6 +21,9 @@ params:
             filterable: 1
         tags:
             formType: Admingenerator\FormExtensionsBundle\Form\Type\DoubleListEntityType
+    actions:
+        excel: 
+            confirm: really?
     object_actions:
         delete: ~
         expire:
@@ -94,7 +97,8 @@ builders:
                 - isPublished
             actions:
                 save: ~
-                list: ~
+                list:
+                    confirm: Really cancel edit?
     edit:
         params:
             fields:
@@ -112,8 +116,10 @@ builders:
             object_actions:
                 show: ~
             actions:
-                save: ~
-                list: ~
+                save:
+                    confirm: Really save?
+                list:
+                    confirm: Really cancel edit?
     show:
         params:
             sidebar:

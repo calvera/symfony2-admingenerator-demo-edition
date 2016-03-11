@@ -5,7 +5,6 @@
 
         <fieldset class="form-model-tab-pane tab-pane-model-NONE tab-pane">
             <div class="row">
-            	{% dump(app.request) %}
                 {% block form_col_title %}
                     <div class="col-md-{{ app.request.isXmlHttpRequest() ? 12 : 4 }} form-model-field form-model-field-title form-model-type-text">
                             {{ form_row(form['title']) }}
