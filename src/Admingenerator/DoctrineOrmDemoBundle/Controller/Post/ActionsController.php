@@ -20,41 +20,6 @@ class ActionsController extends BaseActionsController {
 	}
 
 	/**
-	 * This function handles common object actions behaviour like
-	 * checking CSRF protection token or credentials.
-	 *
-	 * To customize your action look into:
-	 * executeObjectSimpleedit() - holds action logic
-	 * successObjectSimpleedit() - called if action was successfull
-	 * errorObjectSimpleedit()   - called if action errored
-	 */
-	protected function attemptObjectSimpleedit($pk) {
-		$Post = $this->getObject($pk);
-
-		try {
-			$this->executeObjectSimpleedit($Post);
-
-			return $this->successObjectSimpleedit($Post);
-		} catch (\Exception $e) {
-			return $this->errorObjectSimpleedit($e, $Post);
-		}
-
-		return $this->render(
-			'AdmingeneratorDoctrineOrmDemoBundle:PostActions:index.html.twig',
-			$this->getAdditionalRenderParameters($Post, 'simpleedit') + array(
-				"Post" => $Post,
-				"title" => $this->get('translator')->trans(
-					"action.custom.title",
-					array('%name%' => 'simpleedit'),
-					'Admingenerator'
-				),
-				"actionRoute" => "Admingenerator_DoctrineOrmDemoBundle_Post_object",
-				"actionParams" => array("pk" => $pk, "action" => "simpleedit"),
-			)
-		);
-	}
-
-	/**
 	 * This function is for you to customize what action actually does
 	 */
 	protected function executeObjectSimpleedit(\Admingenerator\DoctrineOrmDemoBundle\Entity\Post $Post) {
