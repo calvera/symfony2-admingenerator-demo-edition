@@ -6,6 +6,7 @@ use Admingenerated\AdmingeneratorDoctrineOrmDemoBundle\BasePostController\Action
 use Admingenerator\DoctrineOrmDemoBundle\Exception\InvalidForm;
 use Admingenerator\DoctrineOrmDemoBundle\Exception\UnsubmittedForm;
 use Admingenerator\DoctrineOrmDemoBundle\Form\Type\Post\SimpleEditType;
+use Admingenerator\GeneratorBundle\Exception\ValidationException;
 
 /**
  * ActionsController
@@ -37,7 +38,19 @@ class ActionsController extends BaseActionsController {
 	}
 
 	protected function errorObjectSimpleedit(\Exception $e, \Admingenerator\DoctrineOrmDemoBundle\Entity\Post $Post = null) {
-		if ($e instanceof UnsubmittedForm) {
+		if ($e instanceof ValidationException) {
+			if (!$e instanceof UnsubmittedForm) {
+		        $header = $this->get('translator')->trans(
+		            "action.custom.error",
+		            array('%name%' => 'Simpleedit'),
+		            'Admingenerator'
+		        );
+
+		        $errors = $this->renderErrorsAsHTML($e, 'Admingenerator');
+
+		        $this->get('session')->getFlashBag()->add('error', $header.' '.$errors);
+		    }
+
 			return $this->render(
 				'AdmingeneratorDoctrineOrmDemoBundle:PostActions:index.html.twig',
 				$this->getAdditionalRenderParameters($Post, 'simpleedit') + array(
@@ -52,12 +65,11 @@ class ActionsController extends BaseActionsController {
 					'form' => $e->getForm()->createView(),
 				)
 			);
-		} elseif ($e instanceof InvalidForm) {
-			// Display the form for the first time...
 		} else {
 			dump($e);
 		}
 
 		return parent::errorObjectSimpleedit($e, $Post);
 	}
+
 }
